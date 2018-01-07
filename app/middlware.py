@@ -51,3 +51,5 @@ class InspectorMiddlware:
 
     def inspect_network(self, id):
         network = cli.get("http://{}".format(id))
+
+        return network

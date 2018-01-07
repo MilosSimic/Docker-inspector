@@ -1,22 +1,31 @@
 import tornado.ioloop
-import tornado.web
-import tornado.options
 from middlware import InspectorMiddlware
+from heandlers import HomePage
 
-class HomePage(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello world")
+class Application(tornado.web.Application):
+    def __init__(self, handlers, settings, start=False):
+        tornado.web.Application.__init__(self, handlers, **settings)
+        self.start = start
 
-application = tornado.web.Application([
-    (r"/", HomePage),
+        self.middlware = InspectorMiddlware()
+        self._setup()
 
-],debug=True)
+        if self.start:
+            self.loop()
+
+    def _setup(self):
+        self.listen(8888)
+
+    def loop(self):
+        if not self.start:
+            try:
+                tornado.ioloop.IOLoop.instance().start()
+            except KeyboardInterrupt:
+                tornado.ioloop.IOLoop.instance().stop()
+        else:
+            print "Already started"
+
 
 if __name__ == "__main__":
-    application.listen(8888)
-    tornado.options.parse_command_line()
-
-    try:
-        tornado.ioloop.IOLoop.instance().start()
-    except KeyboardInterrupt:
-        tornado.ioloop.IOLoop.instance().stop()
+    a = Application([(r"/", HomePage)],dict(debug=True))
+    a.loop()
