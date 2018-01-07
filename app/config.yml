@@ -1,0 +1,6 @@
+config:
+  - docker_url: localhost:8080
+  - inspector_url: localhost:8080
+  - logs:
+      - to_file: Yes
+      - to_cmd: No
