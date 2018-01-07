@@ -1,4 +1,5 @@
 import yaml
+from constants import CONFIG
 
 class InspectorConfig:
     def __init__(self, path=None, mode=None):
@@ -15,7 +16,7 @@ class InspectorConfig:
         return cfg
 
     def get_config(self, key):
-        return self.cfg['config'][0][key]
+        return self.cfg[CONFIG][0][key]
 
     def config(self):
         return self.cfg

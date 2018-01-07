@@ -1,9 +1,10 @@
 import docker
 import json
 from config import InspectorConfig
+from constants import CONFIG_NAME, CONFIG_MODE, DOCKER_KEY,DOCKER_MODE_LOCAL
 
 class InspectorMiddlware:
-    def __init__(self, path="config.yml", mode="r"):
+    def __init__(self, path=CONFIG_NAME, mode=CONFIG_MODE):
         self.path = path
         self.mode = mode
 
@@ -11,9 +12,9 @@ class InspectorMiddlware:
         self.cli = self._get_docker()
 
     def _get_docker(self):
-        docker_url = self.iconfig.get_config("docker_url")
+        docker_url = self.iconfig.get_config(DOCKER_KEY)
 
-        if docker_url != 'Local':
+        if docker_url != DOCKER_MODE_LOCAL:
             return docker.Client(docker_url)
 
         return docker.from_env()
