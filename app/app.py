@@ -8,13 +8,14 @@ class Application(tornado.web.Application):
         self.start = start
 
         self.middlware = InspectorMiddlware()
+        self.config_port = self.middlware.port()
         self._setup()
 
         if self.start:
             self.loop()
 
     def _setup(self):
-        self.listen(8888)
+        self.listen(self.config_port)
 
     def loop(self):
         if not self.start:

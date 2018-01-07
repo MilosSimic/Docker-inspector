@@ -1,7 +1,7 @@
 import docker
 import json
 from config import InspectorConfig
-from constants import CONFIG_NAME, CONFIG_MODE, DOCKER_KEY,DOCKER_MODE_LOCAL
+from constants import CONFIG_NAME, CONFIG_MODE, DOCKER_KEY,DOCKER_MODE_LOCAL, INSPECTOR_PORT
 
 class InspectorMiddlware:
     def __init__(self, path=CONFIG_NAME, mode=CONFIG_MODE):
@@ -53,3 +53,8 @@ class InspectorMiddlware:
         network = cli.get("http://{}".format(id))
 
         return network
+
+    def port(self):
+        port = self.iconfig.get_config(INSPECTOR_PORT)
+
+        return int(port)
