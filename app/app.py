@@ -1,17 +1,11 @@
 import tornado.ioloop
 import tornado.web
 import tornado.options
-import docker
-import json
-
-cli = docker.from_env()
+from middlware import InspectorMiddlware
 
 class HomePage(tornado.web.RequestHandler):
     def get(self):
-
-        images = cli.images()
-
-        self.write(json.dumps(images))
+        self.write("Hello world")
 
 application = tornado.web.Application([
     (r"/", HomePage),

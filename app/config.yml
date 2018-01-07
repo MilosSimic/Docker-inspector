@@ -1,5 +1,5 @@
 config:
-  - docker_url: localhost:8080
+  - docker_url: Local
   - inspector_url: localhost:8080
   - logs:
       - to_file: Yes

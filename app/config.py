@@ -1,7 +1,7 @@
 import yaml
 
 class InspectorConfig:
-    def __init__(self, path='config.yml', mode='r'):
+    def __init__(self, path=None, mode=None):
         self.path = path
         self.mode = mode
 
@@ -15,7 +15,7 @@ class InspectorConfig:
         return cfg
 
     def get_config(self, key):
-        return self.cfg['config'][key]
+        return self.cfg['config'][0][key]
 
     def config(self):
         return self.cfg
